@@ -58,13 +58,14 @@
                            input.setSelectionRange(val.length, val.length)
                            input.addEventListener('keypress', function (e) {
                                if (e.key === 'Enter') {
+                                   console.log('save')
                                    save.click()
                                    setTimeout(function () {
                                        next.click()
                                        loop()
                                    }, 1000)
                                }
-                           });
+                           }, { once: true });
                        }
                        else
                        {

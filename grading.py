@@ -76,8 +76,8 @@ for d in os.listdir():
             outputForImport.write('{},#\n'.format((num - failed) / num * 100))
         else:
             print('Error {}'.format(id))
-            output.write('-1,-1,0\n')
-            outputForImport.write('0,#\n')
+            # output.write('-1,-1,0\n')
+            # outputForImport.write('0,#\n')
         os.chdir('..')
 
 output.close()
