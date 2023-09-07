@@ -1,10 +1,11 @@
 # Grading
 
-1. Put the llvm build in the toplevel folder.
-2. Put all the downloaded zip file in the PA* folder.
+1. Require Pandas
+2. Put the llvm build in the toplevel folder.
+3. Put all the downloaded zip file in the PA* folder.
 ![Alt text](https://github.com/zyd2001/cs352-Purdue-autoGrading/assets/25120292/2ea324b6-ed1b-4d64-9e52-6aef236c7750)
-3. Execute ./grading.py PA*
-4. Result will be in `result.csv`
+4. Execute ./grading.py PA*
+5. Result will be in `result.csv`
 
 # Browser Script
 
