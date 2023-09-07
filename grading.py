@@ -7,46 +7,46 @@ import pandas
 
 os.chdir(sys.argv[1])
 
-# cwd = os.getcwd()
+cwd = os.getcwd()
 
-# zips = os.listdir()
+zips = os.listdir()
 
-# # unzip all files from brightspace
-# for z in zips:
-#     if '.zip' in z:
-#         subprocess.run(["unzip", "-o", z])
+# unzip all files from brightspace
+for z in zips:
+    if '.zip' in z:
+        subprocess.run(["unzip", "-o", z])
 
 
-# # only keep most recent submission
-# submissions = {}
+# only keep most recent submission
+submissions = {}
 
-# for d in os.listdir():
-#     if os.path.isdir(d):
-#         parts = d.split(' - ')
-#         name = parts[1].split()[0].strip()
-#         if name in submissions:
-#             time = datetime.strptime(parts[2].strip(), "%b %d, %Y %H%M")
-#             if submissions[name]["time"] < time:
-#                 subprocess.run(["rm", "-rf", submissions[name]['dir']])
-#                 submissions[name] = {"time": datetime.strptime(parts[2].strip(), "%b %d, %Y %H%M"), "dir" : d}
-#             else:
-#                 subprocess.run(["rm", "-rf", d])
-#         else:
-#             submissions[name] = {"time": datetime.strptime(parts[2].strip(), "%b %d, %Y %H%M"), "dir" : d}
+for d in os.listdir():
+    if os.path.isdir(d):
+        parts = d.split(' - ')
+        name = parts[1].split()[0].strip()
+        if name in submissions:
+            time = datetime.strptime(parts[2].strip(), "%b %d, %Y %H%M")
+            if submissions[name]["time"] < time:
+                subprocess.run(["rm", "-rf", submissions[name]['dir']])
+                submissions[name] = {"time": datetime.strptime(parts[2].strip(), "%b %d, %Y %H%M"), "dir" : d}
+            else:
+                subprocess.run(["rm", "-rf", d])
+        else:
+            submissions[name] = {"time": datetime.strptime(parts[2].strip(), "%b %d, %Y %H%M"), "dir" : d}
 
-# processes = []
+processes = []
 
-# for d in os.listdir():
-#     if os.path.isdir(d):
-#         os.chdir(d)
-#         logFile = open('log', "w")
-#         p = subprocess.Popen(["../../{}Grading.sh".format(sys.argv[1]), d], stdout=logFile, stderr=logFile)
-#         print('start {}'.format(d))
-#         processes.append(p)
-#         os.chdir('..')
+for d in os.listdir():
+    if os.path.isdir(d):
+        os.chdir(d)
+        logFile = open('log', "w")
+        p = subprocess.Popen(["../grading.sh".format(sys.argv[1]), d], stdout=logFile, stderr=logFile)
+        print('start {}'.format(d))
+        processes.append(p)
+        os.chdir('..')
 
-# for p in processes:
-#     p.wait()
+for p in processes:
+    p.wait()
 
 output = open("result.csv", "w")
 output.write("FullName,ID,correct,all,percent\n")
