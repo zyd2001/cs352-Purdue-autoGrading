@@ -17,3 +17,5 @@
 ![Alt text](https://github.com/zyd2001/cs352-Purdue-autoGrading/assets/25120292/da695721-ab6d-4748-a6d5-74a75cef26ec)
 
 The website prevents script input, so a user keyboard action is required.
+
+There is also a `resultForImport.csv` for importing grades.
