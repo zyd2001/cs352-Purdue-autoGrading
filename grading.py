@@ -49,7 +49,9 @@ for p in processes:
     p.wait()
 
 output = open("result.csv", "w")
+outputForImport = open("resultForImport.csv", "w")
 output.write("FullName,ID,correct,all,percent\n")
+outputForImport.write("Username,,End-of-Line Indicator\n")
 
 # collect result
 for d in os.listdir():
@@ -62,16 +64,20 @@ for d in os.listdir():
         res = subprocess.run(['tail', '-n', '3', 'log'], stdout=subprocess.PIPE, universal_newlines=True)
         result = [x for x in res.stdout.split('\n') if x]
         output.write("{},{},".format(fullName, id))
+        outputForImport.write("#{},".format(id))
         if result[1] == 'OK':
             num = int(result[0].split()[1])
             output.write('{},{},{}\n'.format(num, num, 100))
+            outputForImport.write('100,#\n')
         elif 'FAILED' in result[1]:
             num = int(result[0].split()[1])
             failed = int(result[1].split('=')[1].strip(')'))
             output.write('{},{},{}\n'.format(num - failed, num, (num - failed) / num * 100))
+            outputForImport.write('{},#\n'.format((num - failed) / num * 100))
         else:
             print('Error {}'.format(id))
             output.write('-1,-1,0\n')
+            outputForImport.write('0,#\n')
         os.chdir('..')
 
 output.close()
