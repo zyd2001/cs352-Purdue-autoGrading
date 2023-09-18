@@ -25,14 +25,14 @@ for d in os.listdir():
         parts = d.split(' - ')
         name = parts[1].split()[0].strip()
         if name in submissions:
-            time = datetime.strptime(parts[2].strip(), "%b %d, %Y %H:%M")
+            time = datetime.strptime(parts[2].strip(), "%b %d, %Y %I:%M %p")
             if submissions[name]["time"] < time:
                 subprocess.run(["rm", "-rf", submissions[name]['dir']])
-                submissions[name] = {"time": datetime.strptime(parts[2].strip(), "%b %d, %Y %H:%M"), "dir" : d}
+                submissions[name] = {"time": datetime.strptime(parts[2].strip(), "%b %d, %Y %I:%M %p"), "dir" : d}
             else:
                 subprocess.run(["rm", "-rf", d])
         else:
-            submissions[name] = {"time": datetime.strptime(parts[2].strip(), "%b %d, %Y %H:%M"), "dir" : d}
+            submissions[name] = {"time": datetime.strptime(parts[2].strip(), "%b %d, %Y %I:%M %p"), "dir" : d}
 
 processes = []
 
