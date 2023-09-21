@@ -75,8 +75,8 @@ for d in os.listdir():
             outputForImport.write("#{},".format(id))
             num = int(result[0].split()[1])
             failed = 0
-            failures = re.search('failures=\d', result[1])
-            errors = re.search('errors=\d', result[1])
+            failures = re.search('failures=\d+', result[1])
+            errors = re.search('errors=\d+', result[1])
             if failures:
                 failed += int(failures.group().split('=')[-1])
             if errors:
