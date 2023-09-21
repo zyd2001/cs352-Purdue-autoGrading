@@ -7,6 +7,6 @@ ln -s ../../llvm/Debug+Asserts/bin/
 cd uscc
 make -f ../../Makefile clean
 make -f ../../Makefile
-tar xzf ../../uscc-PA2.tgz
+tar xzf ../../uscc-PA3.tgz
 cd tests
-timeout 20 python2 testSemant.py
+timeout 20 python2 testEmit.py
