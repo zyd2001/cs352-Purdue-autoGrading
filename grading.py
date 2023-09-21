@@ -4,6 +4,7 @@ import os, sys
 import subprocess
 from datetime import datetime
 import pandas
+import re
 
 os.chdir(sys.argv[1])
 
@@ -63,15 +64,23 @@ for d in os.listdir():
         print('collecting result for {}'.format(id))
         res = subprocess.run(['tail', '-n', '3', 'log'], stdout=subprocess.PIPE, universal_newlines=True)
         result = [x for x in res.stdout.split('\n') if x]
-        output.write("{},{},".format(fullName, id))
-        outputForImport.write("#{},".format(id))
         if result[1] == 'OK':
+            output.write("{},{},".format(fullName, id))
+            outputForImport.write("#{},".format(id))
             num = int(result[0].split()[1])
             output.write('{},{},{}\n'.format(num, num, 100))
             outputForImport.write('100,#\n')
         elif 'FAILED' in result[1]:
+            output.write("{},{},".format(fullName, id))
+            outputForImport.write("#{},".format(id))
             num = int(result[0].split()[1])
-            failed = int(result[1].split('=')[1].strip(')'))
+            failed = 0
+            failures = re.search('failures=\d', result[1])
+            errors = re.search('errors=\d', result[1])
+            if failures:
+                failed += int(failures.group().split('=')[-1])
+            if errors:
+                failed += int(errors.group().split('=')[-1])
             output.write('{},{},{}\n'.format(num - failed, num, (num - failed) / num * 100))
             outputForImport.write('{},#\n'.format((num - failed) / num * 100))
         else:

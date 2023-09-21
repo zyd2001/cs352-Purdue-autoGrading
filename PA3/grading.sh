@@ -9,4 +9,4 @@ make -f ../../Makefile clean
 make -f ../../Makefile
 tar xzf ../../uscc-PA3.tgz
 cd tests
-timeout 20 python2 testEmit.py
+timeout 300 python2 testEmit.py
